@@ -15,6 +15,7 @@ export default function Navbar() {
   const logoRef = useRef<HTMLDivElement>(null);
   const callButtonRef = useRef<HTMLButtonElement>(null);
   const linksRef = useRef<HTMLAnchorElement[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { href: '#home', label: 'Home' },
@@ -23,6 +24,19 @@ export default function Navbar() {
     { href: '#fleet', label: 'Fleet Services' },
     { href: '#contact', label: 'Contact' },
   ];
+
+  // Animate dropdown open/close
+  useEffect(() => {
+    if (!dropdownRef.current) return;
+
+    if (isOpen) {
+      gsap.fromTo(
+        dropdownRef.current,
+        { opacity: 0, y: -10, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.25, ease: 'power2.out' }
+      );
+    }
+  }, [isOpen]);
 
   // Initial GSAP animation for logo, links, and CTA
   useEffect(() => {
@@ -72,113 +86,127 @@ export default function Navbar() {
   const handleMouseEnter = (index: number) => {
     const link = linksRef.current[index];
     if (!link) return;
-
-    // Animate this link and optionally all previous ones in stagger
     gsap.to(link, { y: -5, duration: 0.2, ease: 'power1.out' });
-    gsap.to(link, {
-      color: '#C1121F',
-      duration: 0.3,
-      ease: 'power1.out',
-    });
+    gsap.to(link, { color: '#a00e18', duration: 0.3, ease: 'power1.out' });
   };
 
   const handleMouseLeave = (index: number) => {
     const link = linksRef.current[index];
     if (!link) return;
-
     gsap.to(link, { y: 0, duration: 0.2, ease: 'power1.out' });
-    gsap.to(link, {
-      color: '#C1121F',
-      duration: 0.3,
-      ease: 'power1.out',
-    });
+    gsap.to(link, { color: '#C1121F', duration: 0.3, ease: 'power1.out' });
   };
 
+  const handleToggle = () => setIsOpen((prev) => !prev);
+
   return (
-    <nav
-      ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-xl overflow-x-hidden"
-      style={{ height: 80 }}
-    >
-      <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div
-            ref={logoRef}
-            className="w-9 h-9 bg-white rounded-full flex items-center justify-center"
-          >
-            <Wrench className="text-[#C1121F] w-5 h-5" />
-          </div>
-          <span className="font-bold text-lg text-[#C1121F] hidden sm:inline">
-            DH Truck
-          </span>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link, i) => (
-            <a
-              key={link.href}
-              href={link.href}
-              ref={(el) => {
-                if (el) linksRef.current[i] = el;
-              }}
-              className="relative font-medium text-[#C1121F] transition-all duration-300"
-              onMouseEnter={() => handleMouseEnter(i)}
-              onMouseLeave={() => handleMouseLeave(i)}
+    <>
+      <nav
+        ref={navRef}
+        className="fixed top-0 left-0 right-0 z-50 bg-white overflow-x-hidden"
+        style={{ height: 80 }}
+      >
+        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Logo — company name always visible */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <div
+              ref={logoRef}
+              className="w-9 h-9 bg-white rounded-full flex items-center justify-center"
             >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="hidden lg:block">
-          <button
-            ref={callButtonRef}
-            className="bg-[#C1121F] text-white px-5 py-2 rounded-md font-semibold flex items-center gap-2 shadow-md"
-          >
-            <Phone className="w-4 h-4" />
-            Call Now
-          </button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden p-2 rounded-md hover:bg-white/10"
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X className="text-[#C1121F]" /> : <Menu className="text-[#C1121F]" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white px-6 py-8 space-y-6 rounded-b-md shadow-lg z-50">
-          <div className="flex items-center gap-2 pb-4 border-b border-gray-200">
-            <div className="w-8 h-8 bg-[#C1121F] rounded-full flex items-center justify-center">
-              <Wrench className="text-white w-4 h-4" />
+              <Wrench className="text-[#C1121F] w-5 h-5" />
             </div>
-            <span className="font-bold text-[#C1121F] text-lg">DH Truck</span>
+            <span className="font-bold text-lg text-[#C1121F]">
+              DH Truck
+            </span>
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link, i) => (
+              <a
+                key={link.href}
+                href={link.href}
+                ref={(el) => {
+                  if (el) linksRef.current[i] = el;
+                }}
+                className="relative font-medium text-[#C1121F] transition-all duration-300"
+                onMouseEnter={() => handleMouseEnter(i)}
+                onMouseLeave={() => handleMouseLeave(i)}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
 
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="block font-medium text-[#333] hover:text-[#C1121F] transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
+          {/* CTA */}
+          <div className="hidden lg:block">
+            <button
+              ref={callButtonRef}
+              className="bg-[#C1121F] text-white px-5 py-2 rounded-md font-semibold flex items-center gap-2 shadow-md hover:bg-[#a00e18] transition-colors duration-200"
             >
-              {link.label}
-            </a>
-          ))}
+              <Phone className="w-4 h-4" />
+              Call Now
+            </button>
+          </div>
 
-          <button className="w-full bg-[#C1121F] text-white py-3 rounded-md font-semibold shadow-md">
-            Call Now
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2 rounded-md hover:bg-red-50 transition-colors duration-200"
+            onClick={handleToggle}
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            {isOpen ? (
+              <X className="text-[#C1121F] w-6 h-6" />
+            ) : (
+              <Menu className="text-[#C1121F] w-6 h-6" />
+            )}
           </button>
         </div>
+      </nav>
+
+      {/* Mobile Dropdown Overlay — rendered outside nav so it floats freely */}
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Dropdown panel */}
+          <div
+            ref={dropdownRef}
+            className="fixed top-[80px] left-4 right-4 z-50 lg:hidden bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden"
+          >
+
+            {/* Links */}
+            <div className="px-4 py-3 space-y-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-red-50 hover:text-[#C1121F] transition-colors duration-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="px-6 pb-6 pt-2">
+              <button
+                className="w-full bg-[#C1121F] text-white py-3 rounded-md font-semibold shadow-md flex items-center justify-center gap-2 hover:bg-[#a00e18] transition-colors duration-200"
+                onClick={() => setIsOpen(false)}
+              >
+                <Phone className="w-4 h-4" />
+                Call Now
+              </button>
+            </div>
+          </div>
+        </>
       )}
-    </nav>
+    </>
   );
 }
