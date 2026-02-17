@@ -1,0 +1,256 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+html, body {
+  overflow-x: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* DH Truck Repairing - Red & White Theme */
+:root {
+  /* Primary Colors */
+  --primary: #C1121F; /* DH Truck Red */
+  --primary-foreground: #FFFFFF;
+  
+  /* Neutral Colors */
+  --background: #FFFFFF;
+  --foreground: #1a1a1a; /* Dark Gray */
+  --card: #FFFFFF;
+  --card-foreground: #1a1a1a;
+  --popover: #FFFFFF;
+  --popover-foreground: #1a1a1a;
+  
+  /* Secondary & Accents */
+  --secondary: #2a2a2a; /* Dark Gray */
+  --secondary-foreground: #FFFFFF;
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
+  --accent: #C1121F;
+  --accent-foreground: #FFFFFF;
+  --destructive: #C1121F;
+  --destructive-foreground: #FFFFFF;
+  
+  /* Borders & Inputs */
+  --border: #e0e0e0;
+  --input: #f5f5f5;
+  --ring: #C1121F;
+  
+  /* Charts */
+  --chart-1: #C1121F;
+  --chart-2: #ff4d4d;
+  --chart-3: #ff7f7f;
+  --chart-4: #2a2a2a;
+  --chart-5: #666666;
+  
+  --radius: 0.625rem;
+  
+  /* Sidebar */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #C1121F;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #C1121F;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #e0e0e0;
+  --sidebar-ring: #C1121F;
+}
+
+.dark {
+  --primary: #ff4d4d;
+  --primary-foreground: #1a1a1a;
+  --background: #0f0f0f;
+  --foreground: #FFFFFF;
+  --card: #1a1a1a;
+  --card-foreground: #FFFFFF;
+  --popover: #1a1a1a;
+  --popover-foreground: #FFFFFF;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #1a1a1a;
+  --muted: #2a2a2a;
+  --muted-foreground: #999999;
+  --accent: #ff4d4d;
+  --accent-foreground: #1a1a1a;
+  --destructive: #ff4d4d;
+  --destructive-foreground: #1a1a1a;
+  --border: #2a2a2a;
+  --input: #2a2a2a;
+  --ring: #ff4d4d;
+  --chart-1: #ff4d4d;
+  --chart-2: #C1121F;
+  --chart-3: #ff7f7f;
+  --chart-4: #f5f5f5;
+  --chart-5: #999999;
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #ff4d4d;
+  --sidebar-primary-foreground: #1a1a1a;
+  --sidebar-accent: #ff4d4d;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #2a2a2a;
+  --sidebar-ring: #ff4d4d;
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-display: 'Bebas Neue', 'Geist Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* GSAP Animation Styles */
+@layer components {
+  .gsap-btn {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .red-glow {
+    box-shadow: 0 0 20px rgba(193, 18, 31, 0.3);
+  }
+  
+  .red-glow-hover:hover {
+    box-shadow: 0 0 30px rgba(193, 18, 31, 0.6);
+  }
+  
+  .underline-animation {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .underline-animation::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #C1121F;
+    transition: width 0.3s ease;
+  }
+  
+  .underline-animation:hover::after {
+    width: 100%;
+  }
+
+  .sticky-navbar {
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Animations */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(20px, -50px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  75% {
+    transform: translate(50px, 50px) scale(1.05);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(193, 18, 31, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(193, 18, 31, 0.6);
+  }
+}
+
+@layer utilities {
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2s {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4s {
+    animation-delay: 4s;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth scroll for all browsers */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
