@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 import {
   Clock,
   Award,
@@ -89,7 +90,7 @@ export default function WhyChooseUs() {
         }
       );
 
-      // Bullets staggered reveal with you effect
+      // Bullets staggered reveal
       gsap.fromTo(
         bulletsRef.current.filter(Boolean),
         { x: 50, opacity: 0, rotateX: -20 },
@@ -115,45 +116,24 @@ export default function WhyChooseUs() {
         if (!bullet) return;
 
         bullet.addEventListener('mouseenter', () => {
+          gsap.to(bullet, { scale: 1.08, x: 10, duration: 0.3, overwrite: 'auto' });
           gsap.to(bullet, {
-            scale: 1.08,
-            x: 10,
-            duration: 0.3,
-            overwrite: 'auto',
-          });
-          gsap.to(bullet, {
-            boxShadow: [
-              '0 0 0 0 rgba(193, 18, 31, 0.7)',
-              '0 0 0 20px rgba(193, 18, 31, 0)',
-            ],
+            boxShadow: '0 0 0 20px rgba(193, 18, 31, 0)',
             duration: 0.6,
             ease: 'power2.out',
           });
         });
 
         bullet.addEventListener('mouseleave', () => {
-          gsap.to(bullet, {
-            scale: 1,
-            x: 0,
-            boxShadow: 'none',
-            duration: 0.3,
-            overwrite: 'auto',
-          });
+          gsap.to(bullet, { scale: 1, x: 0, boxShadow: 'none', duration: 0.3, overwrite: 'auto' });
         });
       });
 
       // Image hover effect
       if (imageRef.current) {
         imageRef.current.addEventListener('mouseenter', () => {
-          gsap.to(imageRef.current, {
-            scale: 1.05,
-            duration: 0.3,
-            overwrite: 'auto',
-          });
-          gsap.to(imageRef.current, {
-            boxShadow: '0 30px 60px rgba(193, 18, 31, 0.4)',
-            duration: 0.3,
-          });
+          gsap.to(imageRef.current, { scale: 1.05, duration: 0.3, overwrite: 'auto' });
+          gsap.to(imageRef.current, { boxShadow: '0 30px 60px rgba(193, 18, 31, 0.4)', duration: 0.3 });
         });
 
         imageRef.current.addEventListener('mouseleave', () => {
@@ -179,12 +159,13 @@ export default function WhyChooseUs() {
             ref={imageRef}
             className="relative h-96 lg:h-full min-h-96 rounded-lg overflow-hidden shadow-2xl"
           >
-            <div className="w-full h-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white">
-              <div className="text-center">
-                <Hammer className="w-20 h-20 mx-auto mb-4" />
-                <p className="text-lg">Professional Truck Repair</p>
-              </div>
-            </div>
+            <Image
+              src="/truck-repair.webp"
+              alt="Professional Truck Repair"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
 
           {/* Content */}
@@ -210,9 +191,7 @@ export default function WhyChooseUs() {
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-bold text-foreground text-lg">
-                        {feature.title}
-                      </h3>
+                      <h3 className="font-bold text-foreground text-lg">{feature.title}</h3>
                       <p className="text-gray-600 mt-1">{feature.description}</p>
                     </div>
                   </div>

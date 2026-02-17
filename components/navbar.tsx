@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Menu, X, Wrench, Phone } from 'lucide-react';
+import { Menu, X, Phone } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -108,16 +109,17 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo — company name always visible */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div
-              ref={logoRef}
-              className="w-9 h-9 bg-white rounded-full flex items-center justify-center"
-            >
-              <Wrench className="text-[#C1121F] w-5 h-5" />
+          <Link href="/" className="flex items-center group">
+            <div ref={logoRef}>
+              <Image
+                src="/Truck-logo.jpeg"
+                alt="DH Truck Logo"
+                width={400}
+                height={56}
+                className="object-fill h-14 w-auto"
+                priority
+              />
             </div>
-            <span className="font-bold text-lg text-[#C1121F]">
-              DH Truck
-            </span>
           </Link>
 
           {/* Desktop Menu */}
@@ -179,6 +181,13 @@ export default function Navbar() {
             ref={dropdownRef}
             className="fixed top-[80px] left-4 right-4 z-50 lg:hidden bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden"
           >
+            {/* Header inside dropdown */}
+            <div className="flex items-center gap-2 px-6 py-4 border-b border-gray-100 bg-red-50">
+              <div className="w-8 h-8 bg-[#C1121F] rounded-full flex items-center justify-center">
+                <Wrench className="text-white w-4 h-4" />
+              </div>
+              <span className="font-bold text-[#C1121F] text-lg">DH Truck</span>
+            </div>
 
             {/* Links */}
             <div className="px-4 py-3 space-y-1">

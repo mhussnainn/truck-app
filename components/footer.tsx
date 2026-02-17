@@ -59,7 +59,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                 <Wrench className="text-white w-5 h-5" />
               </div>
-              <span className="font-bold text-lg">DH Truck</span>
+              <span className="font-bold text-lg">DH Truck Trailer Repair</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Professional truck repair and emergency roadside assistance available 24/7 nationwide.

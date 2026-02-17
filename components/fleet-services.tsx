@@ -55,21 +55,21 @@ export default function FleetServices() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation - slides in from top
+      // Title animation
       gsap.fromTo(
         titleRef.current,
-        { opacity: 0, y: -50, scale: 0.9 },
+        { opacity: 0, y: -30, scale: 0.95 },
         {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 1,
+          duration: 0.5,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 70%',
-            end: 'top 50%',
-            scrub: 1.5,
+            start: 'top 80%',
+            end: 'top 65%',
+            scrub: 0.5,
           },
         }
       );
@@ -77,23 +77,22 @@ export default function FleetServices() {
       // Subtitle animation
       gsap.fromTo(
         subtitleRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 0.4,
           ease: 'power2.out',
-          delay: 0.2,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 65%',
-            end: 'top 40%',
-            scrub: 1.5,
+            start: 'top 75%',
+            end: 'top 60%',
+            scrub: 0.5,
           },
         }
       );
 
-      // Service cards - staggered animation with rotation
+      // Service cards - staggered animation
       cardsRef.current.forEach((card, index) => {
         if (!card) return;
 
@@ -101,41 +100,38 @@ export default function FleetServices() {
           card,
           {
             opacity: 0,
-            scale: 0.8,
-            rotationY: -90,
-            x: index % 2 === 0 ? -150 : 150,
+            scale: 0.9,
+            rotationY: -45,
+            x: index % 2 === 0 ? -80 : 80,
           },
           {
             opacity: 1,
             scale: 1,
             rotationY: 0,
             x: 0,
-            duration: 1,
-            delay: index * 0.2,
+            duration: 0.5,
+            delay: index * 0.08,
             ease: 'back.out(1.2)',
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: 'top 60%',
-              end: 'center 30%',
-              scrub: 1.5,
+              start: 'top 70%',
+              end: 'center 50%',
+              scrub: 0.6,
             },
           }
         );
 
-        // Hover animations with you effect
+        // Hover animations
         card.addEventListener('mouseenter', () => {
           gsap.to(card, {
-            scale: 1.08,
-            y: -15,
-            duration: 0.3,
+            scale: 1.05,
+            y: -10,
+            duration: 0.2,
             overwrite: 'auto',
           });
           gsap.to(card, {
-            boxShadow: [
-              '0 10px 30px rgba(193, 18, 31, 0.2)',
-              '0 0 0 30px rgba(193, 18, 31, 0)',
-            ],
-            duration: 0.6,
+            boxShadow: '0 10px 30px rgba(193, 18, 31, 0.2)',
+            duration: 0.2,
             ease: 'power2.out',
           });
         });
@@ -145,26 +141,26 @@ export default function FleetServices() {
             scale: 1,
             y: 0,
             boxShadow: '0 10px 30px rgba(193, 18, 31, 0.1)',
-            duration: 0.3,
+            duration: 0.2,
             overwrite: 'auto',
           });
         });
       });
 
-      // CTA button animation
+      // CTA animation
       gsap.fromTo(
         ctaRef.current,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 0.4,
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'bottom 80%',
-            end: 'bottom 60%',
-            scrub: 1.5,
+            trigger: ctaRef.current,
+            start: 'top 85%',
+            end: 'top 70%',
+            scrub: 0.5,
           },
         }
       );
@@ -207,9 +203,7 @@ export default function FleetServices() {
                   if (el) cardsRef.current[index] = el;
                 }}
                 className="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all cursor-pointer border border-gray-100"
-                style={{
-                  perspective: '1000px',
-                }}
+                style={{ perspective: '1000px' }}
               >
                 <div className="flex items-start gap-4 mb-4">
                   <div className="p-3 bg-primary/10 rounded-lg">
